@@ -63,9 +63,9 @@ static void print_timing( const char *msg ){
 
 #define 	VECTORS 		10
 #define 	INPUTS 		    20
-#define 	OUT_ROWS 		10
-#define 	OUT_COLS 		10
-#define 	TRAIN_STEPS 	30
+#define 	OUT_ROWS 		20
+#define 	OUT_COLS 		20
+#define 	TRAIN_STEPS 	100
 
 int
 main ( int argc, char *argv[] )
@@ -83,7 +83,7 @@ main ( int argc, char *argv[] )
 
 		for ( j=0; j < VECTORS; ++j )
 		{
-			data[i][j] = step;
+                        data[i][j] = step;
 		}
 	}
 
@@ -108,7 +108,7 @@ main ( int argc, char *argv[] )
 	{
 		som_set_inputs ( net, data[i] );
 		som_get_best_neuron_coordinates ( net, &x, &y );
-	//	printf ( "best coordinates [%u]: %u,%u\n", i, x, y );
+		printf ( "best coordinates [%u]: %u,%u\n", i, x, y );
 	}
 
 	print_timing( "Input Recognition" );
@@ -116,4 +116,6 @@ main ( int argc, char *argv[] )
 	som_network_destroy ( net );
 
 	print_timing( "Network Destruction" );
+
+	return 0;
 }			

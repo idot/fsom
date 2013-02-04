@@ -1,4 +1,5 @@
 all:
-	gcc -w -O3 -pipe -fomit-frame-pointer -ffast-math *.c -o fsom_example
+	g++ -w -O3 -pipe -fomit-frame-pointer -ffast-math fsom.c split.cpp main.cpp -o fsom -lm
 clean:
-	rm -f *.o fsom_example
+	rm -f *.o fsom
+
