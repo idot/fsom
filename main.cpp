@@ -174,7 +174,7 @@ int main(int argc, char** argv) {
         }
     }
 
-    size_t i, j, x, y;
+    size_t i, j;
     som_network_t *net = NULL;
     vector<string> inputs;
     vector<vector<double> > data;
@@ -204,16 +204,16 @@ int main(int argc, char** argv) {
     */
     while (getline(cin, line)) {
 	inputs.push_back(line);
-	data.resize(data.size()+1);
-	vector<double>& record = data.back();
+	vector<double> record;
 	vector<string> items;
 	split(line, '\t', items);
-	int ti;
+	double td;
 	vector<string>::iterator j = items.begin();
 	for (; j != items.end(); ++j) {
-	    convert(*j, ti);
-	    record.push_back(ti);
+	    convert(*j, td);
+	    record.push_back(td);
 	}
+	data.push_back(record);
     }
     //}
 
@@ -232,7 +232,7 @@ int main(int argc, char** argv) {
 	}
     } else {
 
-	net = som_network_new(data.size(), height, width);
+	net = som_network_new(data[0].size(), height, width);
 	
 	if ( !net )	{
 	    printf( "ERROR: som_network_new failed.\n" );
@@ -243,15 +243,16 @@ int main(int argc, char** argv) {
     print_timing( "Network Creation" );
 
     if (!save_file.empty()) {
-	cerr << "Training ..." << endl;
+	cerr << "Training using " << data.size() << " input vectors" << endl;
 	som_init_weights ( net, &dataptrs[0], data.size() );
-	som_train ( net, &dataptrs[0], data[0].size(), iterations );
+	som_train ( net, &dataptrs[0], data.size(), iterations );
     }
 
     print_timing( "Network Training" );
 
     for ( i=0; i < data.size(); ++i ) {
 	som_set_inputs ( net, dataptrs[i] );
+	size_t x=0, y=0;
 	som_get_best_neuron_coordinates ( net, &x, &y );
 	//printf ( "best coordinates [%u]: %u,%u\n", i, x, y );
 	cout << x << "\t" << y << "\t" << inputs[i] << endl;

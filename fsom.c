@@ -20,7 +20,6 @@
 
 #include	"fsom.h"
 
-#include	<alloca.h>
 #include	<float.h>
 #include	<limits.h>
 #include	<math.h>
@@ -441,7 +440,7 @@ som_get_best_neuron_coordinates ( som_network_t *net, size_t *x, size_t *y )
 		   k = 0;
 
 	double mod 		 = 0.0,
-		   best_dist = DBL_MAX;
+	    best_dist = DBL_MAX;
 
 	som_neuron_t *neuron;
 
@@ -632,7 +631,7 @@ som_init_weights ( som_network_t *net, double **data, size_t n_data )
 
 	double *avg_data = NULL;
 
-	if ( !( avg_data = (double*) alloca ( net->input_layer->neurons_count * sizeof ( double ))))
+	if ( !( avg_data = (double*) malloc ( net->input_layer->neurons_count * sizeof ( double ))))
 	{
 		return;
 	}
@@ -845,6 +844,7 @@ som_init_weights ( som_network_t *net, double **data, size_t n_data )
 			}
 		}
 	}
+	free(avg_data); // cleanup
 }		/* -----  end of function som_init_weights  ----- */
 
 /**
