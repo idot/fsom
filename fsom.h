@@ -60,7 +60,7 @@ typedef struct  {
 } som_output_layer_t
 __attribute__ ((aligned));
 
-typedef struct  {
+typedef struct somename {
 	som_input_layer_t   *input_layer;
 	som_output_layer_t  *output_layer;
 	double              T_learning_param;
