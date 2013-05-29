@@ -60,7 +60,11 @@ typedef struct  {
 } som_output_layer_t
 __attribute__ ((aligned));
 
+#ifdef __APPLE__
 typedef struct somename {
+#else
+typedef struct {
+#endif
 	som_input_layer_t   *input_layer;
 	som_output_layer_t  *output_layer;
 	double              T_learning_param;
