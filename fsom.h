@@ -63,7 +63,7 @@ __attribute__ ((aligned));
 #ifdef __APPLE__
 typedef struct somename {
 #else
-typedef struct {
+typedef struct som_network_t_record {
 #endif
 	som_input_layer_t   *input_layer;
 	som_output_layer_t  *output_layer;
